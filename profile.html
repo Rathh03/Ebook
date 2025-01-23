@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+    
+        .profile-header {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        .profile-info {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+    
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #A8D3CC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #fff;
+        }
+    
+        .profile-details {
+            flex: 1;
+        }
+    
+        #profile {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+    
+        .profile-bio {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+    
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+    
+        .stat-box {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00171F;
+        }
+    
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    
+        .content-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+    
+        .tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+    
+        .tab.active {
+            color: #00171F;
+            border-bottom: 2px solid #00171F;
+        }
+    
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+    
+        .book-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        .book-cover {
+            aspect-ratio: 2/3;
+            background-color: #A8D3CC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2rem;
+        }
+    
+        .book-info {
+            padding: 1rem;
+        }
+    
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+    
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    
+        .edit-profile-btn {
+            background-color: #00171F;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+    
+        .edit-profile-btn:hover {
+            background-color: #00171F;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+    
+            .profile-picture {
+                margin-bottom: 15px;
+            }
+    
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+    
+            .content-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+    
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .stats-container {
+            flex-wrap: wrap; 
+        }
+
+        .stat-box {
+            flex: 0 0 calc(50% - 1rem); 
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stat-box {
+            flex: 0 0 100%; 
+        }
+    }
+    </style>
+    
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">EBook</div>
+        <div class="search-bar">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for a story..."
+                oninput="searchStory()" 
+            />
+            <button onclick="searchStory()">Search</button>
+        </div>
+        <div class="auth-links" id="authLinks">
+            <a href="index.html">Home</a>
+            <a href="noti.html">Notification</a>
+            <div class="dropdown" id="writeDropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">Write ▼</button>
+                <div class="dropdown-content">
+                    <a href="create-story.html">Create a story</a>
+                    <a href="labrary.html">Library</a>
+                </div>
+            </div>
+            <a id="authLink" href="javascript:void(0)" onclick="logout()">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <div class="profile-header">
+                <button class="edit-profile-btn">Edit Profile</button>
+                <div class="profile-info">
+                    <div class="profile-picture">👤</div>
+                    <div class="profile-details">
+                        <div id="profile">
+                            Username <span id="username"></span>
+                        </div>
+                        <p class="profile-bio">Passionate writer | Book lover | Creative storyteller</p>
+                    </div>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Published Works</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">245</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">128</div>
+                        <div class="stat-label">Following</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">34</div>
+                        <div class="stat-label">Reading List</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-tabs">
+                <button class="tab active" data-tab="published">Published Works</button>
+                <button class="tab" data-tab="drafts">Drafts</button>
+                <button class="tab" data-tab="reading">Reading List</button>
+            </div>
+
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-cover">📚</div>
+                    <div class="book-info">
+                        <div class="book-title">The Hidden Portal</div>
+                        <div class="book-meta">
+                            <span>Fantasy</span>
+                            <span>Jan 15, 2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-cover">📚</div>
+                    <div class="book-info">
+                        <div class="book-title">Midnight Tales</div>
+                        <div class="book-meta">
+                            <span>Horror</span>
+                            <span>Feb 1, 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                console.log(`Switched to ${tab.dataset.tab} tab`);
+            });
+        });
+
+        // Edit profile button functionality
+        document.querySelector('.edit-profile-btn').addEventListener('click', () => {
+            alert('Edit profile clicked');
+        });
+
+        // Function to handle logout
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false');
+            window.location.href = 'index.html';
+        }
+
+        // Load the user's profile info
+        window.onload = function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+        
+            if (user) {
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('email').textContent = user.email;
+            } else {
+                alert("No user found. Please log in.");
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

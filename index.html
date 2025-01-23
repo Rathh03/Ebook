@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html aria-label="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ebook Website</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <header class="navbar">
+            <!--Logo website-->
+            <div class="logo">EBook</div>
+            <div class="search-bar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search for a story..."
+                    oninput="searchStory()" 
+                />
+                <button onclick="searchStory()">Search</button>
+            </div>
+            <!--navar bar-->
+            <div class="auth-links" id="authLinks">
+                <a href="index.html">Home</a>
+                <!-- <a href="labrary.html">Library</a> -->
+                <a href="noti.html">Notification</a>
+                <!--Dropdown for menu of write-->
+                <div class="dropdown" id="writeDropdown">
+                    <button class="dropbtn" onclick="toggleDropdown()">Write ▼</button>
+                    <div class="dropdown-content">
+                        <a href="create-story.html">Create a story</a>
+                        <a href="labrary.html">Library</a>
+                    </div>
+                </div>
+                <!-- <a id="authLink" href="login.html">Log In</a> -->
+                <a id="authLink" href="login.html">Log In</a>
+            </div>
+        </header>
+
+        <main>
+            <div id="book-container" class="book-container">
+                <!-- Books will be dynamically loaded here -->
+            </div>
+        </main>
+
+        <footer>
+            <hr>
+            <div class="footer-container">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h3>EBook Website</h3>
+                    <p>Your one-stop platform for creating and sharing stories with a global audience.</p>
+                </div>
+                
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="labrary.html">Library</a></li>
+                        <li><a href="create-story.html">Write</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Section -->
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: support@ebook.com</p>
+                    <p>Phone: +123 456 789</p>
+                    <p>Address: 123 EBook Street, Literature City</p>
+                </div>
+                
+                <!-- Social Media Section -->
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p class="footer-note">&copy; 2024 EBook Website. All rights reserved.</p>
+        </footer>
+
+        <script src="script.js"></script>
+        <!-- <script>
+            // Example stories data
+            const stories = [
+                {
+                    title: "Twisted Love",
+                    author: "Ana Huang",
+                    image: "https://i.pinimg.com/736x/8e/35/a2/8e35a2da1f6c746db1ae17bb061c117a.jpg",
+                    link: "story1.html"
+                },
+                {
+                    title: "Twisted Game",
+                    author: "Ana Huang",
+                    image: "https://i.pinimg.com/474x/b1/d6/37/b1d6378ecc567b2ca056b07eba12a9b2.jpg",
+                    link: "story2.html"
+                },
+                {
+                    title: "Twisted Life",
+                    author: "Ana Huang",
+                    image: "https://i.pinimg.com/474x/f8/2f/0c/f82f0ccaeaa763afbd78f53b89e5e713.jpg",
+                    link: "story3.html"
+                }
+            ];
+
+            // Function to toggle the visibility of the dropdown menu
+            function toggleDropdown() {
+                const dropdown = document.getElementById('writeDropdown');
+                dropdown.classList.toggle('show');
+            }
+
+            // Function to handle the search action
+            function searchStory() {
+                const searchInput = document.getElementById('searchInput').value.toLowerCase();
+                const container = document.getElementById('book-container');
+
+                // Filter stories by title
+                const filteredStories = stories.filter(story => story.title.toLowerCase().includes(searchInput));
+
+                // Clear the container before displaying filtered results
+                container.innerHTML = '';
+
+                // Display filtered stories
+                filteredStories.forEach(story => {
+                    const bookCard = document.createElement('a');
+                    bookCard.classList.add('book-card');
+                    bookCard.href = story.link;
+                    bookCard.target = '_blank'; // Open the story in a new tab
+
+                    bookCard.innerHTML = `
+                        <img src="${story.image}" alt="${story.title}">
+                        <h3>${story.title}</h3>
+                        <p>by ${story.author}</p>
+                    `;
+
+                    container.appendChild(bookCard);
+                });
+
+                // If no stories match, display a message
+                if (filteredStories.length === 0) {
+                    container.innerHTML = '<p>No stories found</p>';
+                }
+            }
+
+            // Function to update the login state dynamically
+            function updateAuthLink() {
+                const authLink = document.getElementById('authLink');
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+                if (isLoggedIn) {
+                    authLink.textContent = 'Profile';  // Update text to "Profile"
+                    authLink.href = 'profile.html';    // Redirect to profile page
+                } else {
+                    authLink.textContent = 'Log In';   // Reset text to "Log In"
+                    authLink.href = 'login.html';      // Redirect to login page
+                }
+            }
+
+            // Call this function when the page is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                updateAuthLink();  // Update the link based on login state
+            });
+
+        </script> -->
+    </body>
+</html>

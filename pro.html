@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar with Logo, Search Bar, and Menus</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px 20px;
+          background-color: #003366;
+          color: white;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          box-sizing: border-box; /* Corrected box-sizing */
+        }
+
+        /* Logo */
+        .navbar .logo {
+          font-family: Georgia, 'Times New Roman', Times, serif;
+          font-size: 3rem;
+          font-weight: bold;
+          color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Search bar styles */
+        .navbar .search-bar {
+            flex: 1;
+            margin: 0 20px;
+            display: flex;
+        }
+
+        .navbar .search-bar input {
+          padding: 5px 19px;
+          font-size: 1rem;
+          border: 1px solid rgb(0, 0, 0);
+          border-radius: 10px;
+          outline: none;
+      }
+
+      .search-bar button{
+        padding: 5px 10px;
+        margin-left: 3px;
+        border: none;
+        background-color: rgb(215, 215, 215);
+        color: black;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+
+        .navbar .search-bar button:hover {
+            background-color: #004d99;
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+          position: relative;
+          display: inline-block;
+          color: white;
+      }
+
+        .dropdown .dropbtn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+        .dropdown .dropbtnn {
+          background-color: transparent;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+          padding: 10px 15px;
+      }        
+
+        .dropdown .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 150px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 5px;
+        }
+
+        .dropdown .dropdown-content a {
+            color: #003366;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown .dropdown-content a:hover {
+            background-color: #f4f4f4;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                text-align: center;
+            }
+
+            .navbar .search-bar {
+                order: 2;
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .navbar a {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <!-- Logo -->
+        <div class="logo">Ebook</div>
+
+        <!-- Search bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+
+        <!-- Menu links -->
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">Library</a>
+            <a href="#">Notification</a>
+            <div class="dropdown">
+                <button class="dropbtn">Write</button>
+                <div class="dropdown-content">
+                    <a href="#">Create a Story</a>
+                    <a href="#">My Story</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtnn"><i class="fa-solid fa-bars" style="color: #63E6BE;"></i></button>
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Add any interactivity if needed
+        console.log("Navbar with logo, search bar, and hamburger icon loaded successfully.");
+    </script>
+</body>
+</html>

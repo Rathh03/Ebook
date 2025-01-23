@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .profile-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+  }
+
+  .profile-header {
+      background-color: var(--white);
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .profile-info {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+  }
+
+  .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--white);
+  }
+
+  .profile-details {
+      flex: 1;
+  }
+
+  .profile-name {
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+  }
+
+  .profile-bio {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+  }
+
+  .stats-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      text-align: center;
+  }
+
+  .stat-box {
+      background-color: var(--white);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .stat-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+  }
+
+  .stat-label {
+      color: var(--text-light);
+      font-size: 0.9rem;
+  }
+
+  .content-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+  }
+
+  .tab {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: none;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+  }
+
+  .tab.active {
+      color: #00171F;
+      border-bottom: 2px solid #00171F;
+  }
+
+  .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+  }
+
+  .book-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .book-cover {
+      aspect-ratio: 2/3;
+      background-color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 2rem;
+  }
+
+  .book-info {
+      padding: 1rem;
+  }
+
+  .book-title {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+  }
+
+  .book-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-light);
+      font-size: 0.9rem;
+  }
+
+  .edit-profile-btn {
+      background-color: #00171F;
+      color: var(--white);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+  }
+
+  .edit-profile-btn:hover {
+      background-color: #00171F;
+  }
+  </style>
+</head>
+<body>
+    <body>
+        <header class="navbar">
+            <!--Logo website-->
+            <div class="logo">EBook</div>
+            <div class="search-bar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search for a story..."
+                    oninput="searchStory()" 
+                />
+                <button onclick="searchStory()">Search</button>
+            </div>
+            <!--navar bar-->
+            <div class="auth-links" id="authLinks">
+                <a href="index.html">Home</a>
+                <!-- <a href="labrary.html">Library</a> -->
+                <a href="noti.html">Notification</a>
+                <!--Dropdown for menu of write-->
+                <div class="dropdown" id="writeDropdown">
+                    <button class="dropbtn" onclick="toggleDropdown()">Write ▼</button>
+                    <div class="dropdown-content">
+                        <a href="create-story.html">Create a story</a>
+                        <!-- <a href="my-story.html">My story</a> -->
+                        <a href="labrary.html">Library</a>
+                    </div>
+                </div>
+                <!-- <a id="authLink" href="login.html">Log In</a> -->
+                <a id="authLink" href="login.html">Log In</a>
+            </div>
+        </header>
+        <main>
+            <!-- <div class="profile-container"> -->
+                <!-- <div class="profile-header">
+                    <button class="edit-profile-btn">Edit Profile</button>
+                    <div class="profile-info">
+                        <div class="profile-picture">👤</div>
+                        <div class="profile-details">
+                            <h1 class="profile-name">Username</h1>
+                            <p class="profile-bio">Passionate writer | Book lover | Creative storyteller</p>
+                        </div>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Published Works</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">245</div>
+                            <div class="stat-label">Followers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">128</div>
+                            <div class="stat-label">Following</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">34</div>
+                            <div class="stat-label">Reading List</div>
+                        </div>
+                    </div>
+                </div> -->
+        
+                <div class="content-tabs">
+                    <button class="tab active" data-tab="published">Published Works</button>
+                    <button class="tab" data-tab="drafts">Drafts</button>
+                    <button class="tab" data-tab="reading">Reading List</button>
+                </div>
+        
+                <div class="books-grid">
+                    <div class="book-card">
+                        <div class="book-cover">📚</div>
+                        <div class="book-info">
+                            <div class="book-title">The Hidden Portal</div>
+                            <div class="book-meta">
+                                <span>Fantasy</span>
+                                <span>Jan 15, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">📚</div>
+                        <div class="book-info">
+                            <div class="book-title">Midnight Tales</div>
+                            <div class="book-meta">
+                                <span>Horror</span>
+                                <span>Feb 1, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+        
+        </main>
+
+
+    <!-- <p><button onclick="logout()">Logout</button></p> -->
+    <script src="script.js"></script>
+    <script>
+            // Select all tabs and content areas
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.content');
+
+        // Add click event listeners to all tabs
+        tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs and hide content
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked tab and show corresponding content
+            tab.classList.add('active');
+            const contentId = tab.getAttribute('data-tab');
+            document.getElementById(contentId).classList.add('active');
+        });
+        });
+  </script>
+</body>
+</html>

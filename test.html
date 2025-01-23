@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="styles.css">
+     <style>
+        .profile-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .update-button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .update-button:hover {
+            background-color: #218838;
+        }
+        
+     </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <h2>PROFILE</h2>
+            <div class="avatar-section">
+                <div class="avatar-picture">
+                    <img src="avatar-placeholder.png" alt="Avatar">
+                </div>
+                <button class="upload-button">Upload Picture</button>
+            </div>
+            <ul class="social-links">
+                <li><a href="#">Add Facebook</a></li>
+                <li><a href="#">Add Twitter</a></li>
+                <li><a href="#">Add Instagram</a></li>
+                <li><a href="#">Add Google+</a></li>
+            </ul>
+        </div>
+        <div class="profile-content">
+            <nav class="profile-navigation">
+                <a href="#">Profile</a>
+                <a href="#">Statistics</a>
+                <a href="#">Get Help</a>
+                <a href="#">Settings</a>
+                <a href="#" class="sign-out">Sign Out</a>
+            </nav>
+            <div class="profile-info">
+                <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+                <p><strong>About Me:</strong></p>
+                <textarea id="about" rows="4" placeholder="Tell us about yourself..."></textarea>
+                <button class="update-button">Update Information</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // script.js
+
+// Simulate fetching data from the server
+const fetchUserData = async () => {
+    // Simulated user data (replace this with an actual API call)
+    return {
+        username: "JohnDoe123",
+        email: "johndoe@example.com",
+        about: "I am a passionate developer and designer."
+    };
+};
+
+// Populate the profile with user data
+const populateProfile = async () => {
+    const userData = await fetchUserData();
+
+    document.getElementById("username").textContent = userData.username;
+    document.getElementById("email").textContent = userData.email;
+    document.getElementById("about").value = userData.about;
+};
+
+// Call the function on page load
+document.addEventListener("DOMContentLoaded", populateProfile);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Stories</title>
+    <link rel="stylesheet" href="index.css">
+   <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        
+        .story-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .stories {
+            margin: 20px 0;
+        }
+        
+        .story {
+            background: #e7f3fe;
+            border-left: 6px solid black;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .story h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <!--Logo website-->
+        <div class="logo">EBook</div>
+        <div class="search-bar">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for a story..."
+                oninput="searchStory()" 
+            />
+            <button onclick="searchStory()">Search</button>
+        </div>
+        <!--navar bar-->
+        <div class="auth-links" id="authLinks">
+            <a href="index.html">Home</a>
+            <a href="labrary.html">Library</a>
+            <a href="noti.html">Notification</a>
+            <!--Dropdown for menu of write-->
+            <div class="dropdown" id="writeDropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">Write ▼</button>
+                <div class="dropdown-content">
+                    <a href="create-story.html">Create a story</a>
+                    <a href="my-story.html">My story</a>
+                </div>
+            </div>
+            <!-- <a id="authLink" href="login.html">Log In</a> -->
+            <a id="authLink" href="login.html">Log In</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="story-container">
+            <h1>Your Stories</h1>
+            <div id="stories" class="stories"></div>
+            <button id="add-story">Add Story</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Sample stories data
+        const stories = [
+            { id: 1, title: "My First Story", content: "This is the content of my first story." },
+            { id: 2, title: "A Day at the Beach", content: "I had a great time at the beach!" },
+        ];
+
+        // Function to display stories
+        function displayStories() {
+            const storiesContainer = document.getElementById('stories');
+            storiesContainer.innerHTML = ''; // Clear existing stories
+
+            stories.forEach(story => {
+                const storyElement = document.createElement('div');
+                storyElement.classList.add('story');
+                storyElement.innerHTML = `<h3>${story.title}</h3><p>${story.content}</p>`;
+                storiesContainer.appendChild(storyElement);
+            });
+        }
+
+        // Function to add a new story
+        function addStory() {
+            const newStory = {
+                id: stories.length + 1,
+                title: `New Story ${stories.length + 1}`,
+                content: `This is the content of new story ${stories.length + 1}.`
+            };
+            stories.push(newStory);
+            displayStories();
+        }
+
+        // Event listener for adding a new story
+        document.getElementById('add-story').addEventListener('click', addStory);
+
+        // Initial display of stories
+        displayStories();
+    </script>
+</body>
+</html>

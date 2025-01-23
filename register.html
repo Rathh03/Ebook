@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <style>
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      background-color: aliceblue;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      color: #555;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .input-container {
+      position: relative;
+    }
+
+    input {
+      background-color: rgb(215, 215, 215);
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid rgb(215, 215, 215);
+      border-radius: 20px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #333;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #333;
+    }
+
+    button {
+      background-color: #555;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .links {
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>EBook Website</h1>
+    <h2>Register</h2>
+    <form id="registerForm" method="POST">
+      <label for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="password">Password:</label>
+      <div class="input-container">
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <span class="toggle-password" onclick="togglePassword('password')">👁️</span>
+      </div>
+
+      <label for="confirmPassword">Confirm Password:</label>
+      <div class="input-container">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+        <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁️</span>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+    <p class="error" id="error"></p>
+    <div class="links">
+        <a href="login.html">Already have an account?</a>
+    </div>    
+  </div>
+
+  <script>
+    function togglePassword(fieldId) {
+      const passwordField = document.getElementById(fieldId);
+      const icon = passwordField.nextElementSibling;
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        icon.textContent = "🙈"; // Change icon to indicate visibility
+      } else {
+        passwordField.type = "password";
+        icon.textContent = "👁️"; // Change icon back to indicate hidden
+      }
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+    
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const full_name = document.getElementById("fullname").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      const errorElement = document.getElementById("error");
+
+      // Validate password and confirm password match
+      if (password !== confirmPassword) {
+        errorElement.textContent = "Passwords do not match!";
+        return;
+      } else {
+        errorElement.textContent = ""; // Clear error if passwords match
+      }
+    
+      const formData = { email, password, full_name };
+
+      // Validate form fields
+      if (!email || !password || !full_name) {
+        errorElement.textContent = "All fields are required!";
+        return;
+      } else {
+        errorElement.textContent = ""; // Clear error message
+      }
+    
+      try {
+        const response = await fetch("http://localhost:3000/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+    
+        const result = await response.json();
+    
+        if (response.ok) {
+          alert(result.message); // Show success message
+        } else {
+          alert(result.message || "Error registering user.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong!");
+      }
+    });
+  </script>
+</body>
+</html>

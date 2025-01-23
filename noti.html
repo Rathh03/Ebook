@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification System</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Notification System Styling */
+        .notifications-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .notifications-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .mark-all-read {
+            color: var(--primary-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .notification-group {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .group-header {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--background-light);
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item.unread {
+            background-color: #F0F7F6;
+        }
+
+        .notification-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-text {
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .notification-time {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .notification-action {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .filter-btn.active {
+            color: var(--primary-color);
+        }
+
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <!--Logo website-->
+        <div class="logo">EBook</div>
+        <div class="search-bar">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for a story..."
+                oninput="searchStory()" 
+            />
+            <button onclick="searchStory()">Search</button>
+        </div>
+        <div class="auth-links" id="authLinks">
+            <a href="index.html">Home</a>
+            <!-- <a href="labrary.html">Library</a> -->
+            <a href="noti.html">Notification</a>
+            <div class="dropdown" id="writeDropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">Write ▼</button>
+                <div class="dropdown-content">
+                    <a href="create-story.html">Create a story</a>
+                    <a href="labrary.html">Library</a>
+                </div>
+            </div>
+            <a id="authLink" href="login.html">Log In</a>
+        </div>
+    </header>
+
+    <div class="notifications-container">
+        <div class="notifications-header">
+            <h1 class="notifications-title">Notifications</h1>
+            <button class="mark-all-read">Mark all as read</button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="comments">Comments</button>
+            <button class="filter-btn" data-filter="likes">Likes</button>
+            <button class="filter-btn" data-filter="follows">Follows</button>
+            <button class="filter-btn" data-filter="updates">Updates</button>
+        </div>
+
+        <div class="notification-group">
+            <div class="group-header">Today</div>
+            <div class="notification-item unread" data-type="comments">
+                <div class="notification-avatar">👤</div>
+                <div class="notification-content">
+                    <p class="notification-text"><strong>Sarah Parker</strong> commented on your story "The Hidden Portal"</p>
+                    <p class="notification-time">2 hours ago</p>
+                </div>
+                <div class="notification-action">View</div>
+            </div>
+            <div class="notification-item" data-type="updates">
+                <div class="notification-avatar">📚</div>
+                <div class="notification-content">
+                    <p class="notification-text">New chapter available in "Midnight Tales"</p>
+                    <p class="notification-time">5 hours ago</p>
+                </div>
+                <div class="notification-action">Read</div>
+            </div>
+        </div>
+
+        <div class="notification-group">
+            <div class="group-header">Yesterday</div>
+            <div class="notification-item" data-type="follows">
+                <div class="notification-avatar">👤</div>
+                <div class="notification-content">
+                    <p class="notification-text"><strong>John Doe</strong> started following you</p>
+                    <p class="notification-time">1 day ago</p>
+                </div>
+                <div class="notification-action">Follow</div>
+            </div>
+            <div class="notification-item" data-type="likes">
+                <div class="notification-avatar">❤️</div>
+                <div class="notification-content">
+                    <p class="notification-text"><strong>Emily Brown</strong> liked your story "Mystic Dreams"</p>
+                    <p class="notification-time">1 day ago</p>
+                </div>
+                <div class="notification-action">View</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const notificationItems = document.querySelectorAll('.notification-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active class
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter notifications
+                const filter = btn.dataset.filter;
+                notificationItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.type === filter) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Mark all as read
+        document.querySelector('.mark-all-read').addEventListener('click', () => {
+            notificationItems.forEach(item => {
+                item.classList.remove('unread');
+            });
+        });
+    </script>
+</body>
+</html>

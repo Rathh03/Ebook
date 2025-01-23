@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Story</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            color: black;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        #storyForm {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+        input, textarea, select {
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #00171F;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        /*button:hover {
+            background-color: rgb(138, 138, 138);
+        }*/
+        #message {
+            text-align: center;
+            font-size: 16px;
+            color: rgb(7, 0, 17);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <!--Logo website-->
+        <div class="logo">EBook</div>
+        <div class="search-bar">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for a story..."
+                oninput="searchStory()" 
+            />
+            <button onclick="searchStory()">Search</button>
+        </div>
+        <!--navar bar-->
+        <div class="auth-links" id="authLinks">
+            <a href="index.html">Home</a>
+            <!-- <a href="labrary.html">Library</a> -->
+            <a href="noti.html">Notification</a>
+            <!--Dropdown for menu of write-->
+            <div class="dropdown" id="writeDropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">Write ▼</button>
+                <div class="dropdown-content">
+                    <a href="create-story.html">Create a story</a>
+                    <!-- <a href="my-story.html">My story</a> -->
+                    <a href="labrary.html">Library</a>
+                </div>
+            </div>
+            <!-- <a id="authLink" href="login.html">Log In</a> -->
+            <a id="authLink" href="login.html">Log In</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Create Your Story</h1>
+        <!-- Add enctype="multipart/form-data" and method="POST" -->
+        <form id="storyForm" method="POST" enctype="multipart/form-data">
+            <label for="title">Story Title:</label>
+            <input type="text" id="title" name="title" required placeholder="Enter your story title">
+
+            <label for="description">Story Description:</label>
+            <textarea id="description" name="description" rows="4" required placeholder="Enter a short description of your story"></textarea>
+
+            <label for="cover">Story Cover Image:</label>
+            <input type="file" id="cover" name="cover"/>
+
+            <label for="genre">Select Genre:</label>
+            <select id="genre" name="genre" required>
+                <option value="romance">Romance</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="mystery">Mystery</option>
+                <option value="thriller">Thriller</option>
+                <option value="adventure">Adventure</option>
+            </select>
+
+            <input type="hidden" id="date" name="date">
+
+            <button type="submit">Create Story</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('storyForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+        
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const genre = document.getElementById('genre').value;
+            const cover = document.getElementById('cover').files[0]; // File upload
+            const date = new Date().toISOString();
+        
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('genre', genre);
+            formData.append('cover', cover);
+            formData.append('date', date);
+        
+            // Send the form data to the backend
+            fetch('http://localhost:3000/create-story', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error creating story.';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
